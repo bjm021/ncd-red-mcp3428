@@ -14,7 +14,7 @@ For use in node-red, use the same command, but inside of your node-red directory
 
 ### Usage
 
-The `test.js` file included in this library contains basic examples for use.  All of the available configurations are available in the node-red node through the UI.
+The `test.js` file included in this library contains basic examples for use.  All of the available configurations are available in the node-red node through the UI including the option to change **the address** of the device to use.
 
 ### Raspberry Pi Notes
 
