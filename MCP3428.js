@@ -11,7 +11,7 @@ module.exports = function(RED){
 		RED.nodes.createNode(this, config);
 
 		//set the address from config
-		this.addr = 0x68;
+		this.addr = parseInt(config.addr);
 
 		//set the interval to poll from config
 		this.interval = parseInt(config.interval);

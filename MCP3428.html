@@ -5,6 +5,7 @@
         defaults: {
             name: {value: ""},
 			connection: {value: "", type: "ncd-comm"},
+            addr: { value: "0x68", validate: RED.validators.number },
 			interval: {value: 0, validate: RED.validators.number()},
 			resolution: {value: 12, validate: RED.validators.number()},
 			gain: {value: 1, validate: RED.validators.number()},
@@ -29,6 +30,10 @@
 	<div class="form-row">
 		<label for="node-input-connection"><i class="icon-tag"></i> I2C Connection</label>
 		<select id="node-input-connection"></select>
+	</div>
+	<div class="form-row">
+		<label for="node-input-addr"><i class="icon-repeat"></i> Addr (e.g. 0x86)</label>
+		<input type="text" id="node-input-addr" placeholder="0x68">
 	</div>
 	<div class="form-row">
 		<label for="node-input-interval"><i class="icon-repeat"></i> Interval</label>
