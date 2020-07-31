@@ -18,7 +18,6 @@ module.exports = class MCP3428{
 		this.status = {};
 		this.raw = [];
 		this.init();
-		//test
 	}
 	configByte(ch){
 		var gain = {"1": 0, "2": 1, "4": 2, "8": 3};
