@@ -1,5 +1,5 @@
 module.exports = class MCP3428{
-	constructor(addr, comm, config){
+	constructor(addr, comm, config, channel){
 		//ensure config is an object
 		if(typeof config != 'object') config = {};
 
@@ -12,6 +12,7 @@ module.exports = class MCP3428{
 		this.config.mode *= 1;
 		//set default states and initialize
 		this.comm = comm;
+		this.channel = channel;
 		this.addr = addr;
 		this.initialized = false;
 		this.status = {};
@@ -25,7 +26,7 @@ module.exports = class MCP3428{
 	}
 	init(){
 		//Run initialization routine for the chip
-		this.comm.writeBytes(this.addr, this.configByte(0)).then(() => {
+		this.comm.writeBytes(this.addr, this.configByte(this.channel)).then(() => {
 			this.initialized = true;
 		}).catch((err) => {
 			this.initialized = false;

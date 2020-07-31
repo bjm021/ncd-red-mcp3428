@@ -13,6 +13,8 @@ module.exports = function(RED){
 		//set the address from config
 		this.addr = parseInt(config.addr);
 
+		this.channel = parseInt(config.channel);
+
 		//set the interval to poll from config
 		this.interval = parseInt(config.interval);
 
@@ -66,7 +68,7 @@ module.exports = function(RED){
 		}
 		var queue = new Queue(1);
 		//get the current telemetry data
-		function get_status(repeat, force){
+		function get_status(channel, repeat, force){
 			if(repeat) clearTimeout(sensor_pool[node.id].timeout);
 			if(device_status(node)){
 				var _status = [];
@@ -88,7 +90,7 @@ module.exports = function(RED){
 						if(repeat && node.interval){
 							clearTimeout(sensor_pool[node.id].timeout);
 							sensor_pool[node.id].timeout = setTimeout(() => {
-								if(typeof sensor_pool[node.id] != 'undefined') get_status(true);
+								if(typeof sensor_pool[node.id] != 'undefined') get_status(channel,true);
 							}, sensor_pool[node.id].node.interval);
 						}else{
 							sensor_pool[node.id].polling = false;
@@ -98,16 +100,16 @@ module.exports = function(RED){
 			}else{
 				sensor_pool[node.id].timeout = setTimeout(() => {
 					node.sensor.init();
-					if(typeof sensor_pool[node.id] != 'undefined') get_status(true);
+					if(typeof sensor_pool[node.id] != 'undefined') get_status(channel, true);
 				}, 3000);
 			}
 		}
-		get_status(node.interval && !sensor_pool[node.id].polling);
+		get_status(this.channel, node.interval && !sensor_pool[node.id].polling);
 
 		//if status is requested, fetch it
 		node.on('input', (msg) => {
 			incoming = msg;
-			get_status(false);
+			get_status(this.channel, false);
 		});
 
 		//if node is removed, kill the sensor object
